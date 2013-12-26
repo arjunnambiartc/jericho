@@ -52,6 +52,7 @@ class Change(models.Model):
                                help_text='Try and enter few some more lines')
     Description = models.TextField(blank=True, verbose_name='Description',
                                    help_text='Try and enter few some more lines')
+    Plan = models.TextField(blank=True,verbose_name='Plan')
     Change_Details = models.CharField(max_length=300)
     Site_code = models.CharField(max_length=20)
     Configuration_Item = models.TextField(blank=True, verbose_name='Configuration Item',

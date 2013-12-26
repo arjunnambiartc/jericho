@@ -37,19 +37,15 @@ SUIT_CONFIG = {
     # 'CONFIRM_UNSAVED_CHANGES': True, # Default True
 
     # menu
-    # 'SEARCH_URL': '/admin/auth/user/',
-    # 'MENU_ICONS': {
-    #    'sites': 'icon-leaf',
-    #    'auth': 'icon-lock',
-    # },
+     'SEARCH_URL': '/admin/examples/change/',
     # 'MENU_OPEN_FIRST_CHILD': True, # Default True
     # 'MENU_EXCLUDE': ('auth.group',),
-    # 'MENU': (
-    #     'sites',
-    #     {'app': 'auth', 'icon':'icon-lock', 'models': ('user', 'group')},
-    #     {'label': 'Settings', 'icon':'icon-cog', 'models': ('auth.user', 'auth.group')},
-    #     {'label': 'Support', 'icon':'icon-question-sign', 'url': '/support/'},
-    # ),
+     'MENU': (
+         'sites',
+         {'app': 'auth', 'label': 'Authorization', 'icon': 'icon-lock', 'models': ('user', 'group')},
+         {'app': 'examples', 'label': 'Change Management', 'icon': 'icon-leaf',
+          'models': ('change', 'weekend', 'year')},
+     ),
 
     # misc
     # 'LIST_PER_PAGE': 15
@@ -62,7 +58,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'examples',
     'south',
-    'guardian',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

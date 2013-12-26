@@ -29,10 +29,11 @@ class ChangeForm(ModelForm):
             'Summary': AutosizedTextarea(attrs={'class': 'span6'}),
             'Description': AutosizedTextarea(attrs={'class': 'span6'}),
             'Comments': AutosizedTextarea(attrs={'class': 'span5'}),
+            'Plan': AutosizedTextarea(attrs={'class': 'span8'}),
         }
 
 
-class ChangeAdmin(GuardedModelAdmin):
+class ChangeAdmin(ModelAdmin):
     form = ChangeForm
     search_fields = ('RFC', 'Ticket_Number', 'User_Email', 'Change_Details')
     list_display = ('RFC', 'Ticket_Number', 'User_Requested_Time', 'Start_Time', 'End_Time',
@@ -44,10 +45,10 @@ class ChangeAdmin(GuardedModelAdmin):
 
     fieldsets = [
         ('Ticket Details', {
-            #'classes': ('suit-tab suit-tab-general',),
+            'classes': ('suit-tab suit-tab-general',),
             'fields': ['RFC', 'Ticket_Number']}),
         ('Timelines', {
-            #'classes': ('suit-tab suit-tab-general',),
+            'classes': ('suit-tab suit-tab-general',),
             'description': 'All associated Time lines ',
             'fields': ['Start_Time', 'End_Time', 'User_Requested_Time']}),
         ('User Details', {
@@ -59,8 +60,13 @@ class ChangeAdmin(GuardedModelAdmin):
         ('Implementation Status', {
             'fields': ['RFC_status', 'Change_status', 'CMC_Start_Notification', 'CMC_End_Notification',
                        'RFC_Task_closed', 'ROARS_IW_task_closed', 'RFC_Closed', 'Comments']}),
+        ('Attach Plan', {
+            'classes': ('suit-tab suit-tab-plan',),
+            'fields': ['Plan']})
 
     ]
+
+    suit_form_tabs = (('general', 'General'), ('plan', 'Plan'))
 
 admin.site.register(Change, ChangeAdmin)
 
