@@ -9,12 +9,13 @@ from reversion import VersionAdmin
 from import_export.admin import ImportExportModelAdmin
 from suit_ckeditor.widgets import CKEditorWidget
 from suit_redactor.widgets import RedactorWidget
-from .models import Year,Weekend,Change
+from .models import Year, Sheet, Change
 from suit.admin import SortableTabularInline, SortableModelAdmin
 from suit.widgets import SuitDateWidget, SuitSplitDateTimeWidget, EnclosedInput, LinkedSelect, AutosizedTextarea
 from django_select2 import AutoModelSelect2Field, AutoHeavySelect2Widget
 from mptt.admin import MPTTModelAdmin
 from guardian.admin import GuardedModelAdmin
+from django_mptt_admin.admin import DjangoMpttAdmin
 
 
 class ChangeForm(ModelForm):
@@ -36,19 +37,17 @@ class ChangeForm(ModelForm):
 class ChangeAdmin(ModelAdmin):
     form = ChangeForm
     search_fields = ('RFC', 'Ticket_Number', 'User_Email', 'Change_Details')
-    list_display = ('RFC', 'Ticket_Number', 'User_Requested_Time', 'Start_Time', 'End_Time',
-                    'User_Email', 'Line_of_Business', 'Conf_Call_Details', 'Region',
-                    'Summary', 'Description', 'Change_Details', 'Site_code', 'Configuration_Item',
-                    'Plan_Owner', 'Plan_status', 'Change_Owner', 'Implementer', 'Validator')
-    date_hierarchy = 'Start_Time'
+    list_display = ('RFC', 'Ticket_Number', 'User_Email', 'User_Requested_Time', 'Start_Time', 'End_Time',
+                    'User_Email', 'Change_Details', 'Plan_Owner', 'Plan_status',
+                    'Change_Owner', 'Change_status', 'Implementer', 'Validator')
     list_select_related = True
-
+    list_filter = ('Start_Time', 'End_Time')
     fieldsets = [
         ('Ticket Details', {
-            'classes': ('suit-tab suit-tab-general',),
+            'classes': 'suit-tab suit-tab-general',
             'fields': ['RFC', 'Ticket_Number']}),
         ('Timelines', {
-            'classes': ('suit-tab suit-tab-general',),
+            'classes': 'suit-tab suit-tab-general',
             'description': 'All associated Time lines ',
             'fields': ['Start_Time', 'End_Time', 'User_Requested_Time']}),
         ('User Details', {
@@ -61,7 +60,7 @@ class ChangeAdmin(ModelAdmin):
             'fields': ['RFC_status', 'Change_status', 'CMC_Start_Notification', 'CMC_End_Notification',
                        'RFC_Task_closed', 'ROARS_IW_task_closed', 'RFC_Closed', 'Comments']}),
         ('Attach Plan', {
-            'classes': ('suit-tab suit-tab-plan',),
+            'classes': 'suit-tab suit-tab-plan',
             'fields': ['Plan']})
 
     ]
@@ -70,3 +69,23 @@ class ChangeAdmin(ModelAdmin):
 
 admin.site.register(Change, ChangeAdmin)
 
+
+class YearAdmin(ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+    fieldsets = [
+        ('Year', {
+            'classes': 'suit-tab suit-tab-general',
+            'fields': ['name', 'months']})
+    ]
+admin.site.register(Year, YearAdmin)
+
+
+class SheetAdmin(ModelAdmin):
+    list_display = ('sheetchg',)
+    fieldsets = [
+        ('Window', {
+            'classes': 'suit-tab suit-tab-general',
+            'fields': ['Start_Date', 'End_Date', 'sheetchg']})
+    ]
+admin.site.register(Sheet, SheetAdmin)

@@ -51,6 +51,7 @@ SUIT_CONFIG = {
     # 'LIST_PER_PAGE': 15
 }
 
+
 # Application definition
 
 INSTALLED_APPS = (

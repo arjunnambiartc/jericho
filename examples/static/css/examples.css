@@ -1,3 +1,8 @@
 .countries-column .text, .countries-column a {
     text-align: center;
 }
+
+.changes-column .nowrap {
+    white-space: nowrap;
+}
+
