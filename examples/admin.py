@@ -9,7 +9,7 @@ from reversion import VersionAdmin
 from import_export.admin import ImportExportModelAdmin
 from suit_ckeditor.widgets import CKEditorWidget
 from suit_redactor.widgets import RedactorWidget
-from .models import Year, Sheet, Change
+from .models import Change
 from suit.admin import SortableTabularInline, SortableModelAdmin
 from suit.widgets import SuitDateWidget, SuitSplitDateTimeWidget, EnclosedInput, LinkedSelect, AutosizedTextarea
 from django_select2 import AutoModelSelect2Field, AutoHeavySelect2Widget
@@ -65,27 +65,12 @@ class ChangeAdmin(ModelAdmin):
 
     ]
 
+    def suit_cell_attributes(self, obj, column):
+        if column == 'Plan_status' or column == 'Change_status':
+            return {'class': 'nowrap'}
+
     suit_form_tabs = (('general', 'General'), ('plan', 'Plan'))
 
 admin.site.register(Change, ChangeAdmin)
 
 
-class YearAdmin(ModelAdmin):
-    list_display = ('name',)
-    search_fields = ('name',)
-    fieldsets = [
-        ('Year', {
-            'classes': 'suit-tab suit-tab-general',
-            'fields': ['name', 'months']})
-    ]
-admin.site.register(Year, YearAdmin)
-
-
-class SheetAdmin(ModelAdmin):
-    list_display = ('sheetchg',)
-    fieldsets = [
-        ('Window', {
-            'classes': 'suit-tab suit-tab-general',
-            'fields': ['Start_Date', 'End_Date', 'sheetchg']})
-    ]
-admin.site.register(Sheet, SheetAdmin)

@@ -2,34 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Year(models.Model):
-    name = models.CharField(max_length=5)
-    month_choices = ((1, 'January'), (2, 'February'), (3, 'March'), (4, 'April'), (5, 'May'),
-                     (6, 'June'), (7, 'July'), (8, 'August'), (9, 'September'), (10, 'October'),
-                     (11, 'November'), (12, 'December'))
-    months = models.SmallIntegerField(choices=month_choices, default=1, max_length=20)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['name']
-
-#    def save(self, force_insert=False, force_update=False, using=None):
-#        return super(Weekend, self).save(force_insert, force_update, using)
-
-
-class Weekend(models.Model):
-    name = models.CharField(max_length=50)
-    year = models.ForeignKey(Year)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        ordering = ['name']
-
-
 class Change(models.Model):
     RFC = models.CharField(max_length=100)
     Ticket_Number = models.CharField(max_length=100,
@@ -56,7 +28,7 @@ class Change(models.Model):
                                help_text='Try and enter few some more lines')
     Description = models.TextField(blank=True, verbose_name='Description',
                                    help_text='Try and enter few some more lines')
-    Plan = models.TextField(blank=True,verbose_name='Plan')
+    Plan = models.TextField(blank=True, verbose_name='Plan')
     Change_Details = models.CharField(max_length=300)
     Site_code = models.CharField(max_length=20)
     Configuration_Item = models.TextField(blank=True, verbose_name='Configuration Item',
@@ -88,12 +60,3 @@ class Change(models.Model):
     def __unicode__(self):
         return self.RFC
 
-
-class Sheet(models.Model):
-    name = models.CharField(max_length=10)
-    Start_Date = models.DateField(help_text='Start Date in EST')
-    End_Date = models.DateField(help_text='End Date in EST')
-    sheetchg = models.ForeignKey(Change)
-
-    def __unicode__(self):
-        return self.name
