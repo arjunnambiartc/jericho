@@ -66,8 +66,18 @@ class ChangeAdmin(ModelAdmin):
     ]
 
     def suit_cell_attributes(self, obj, column):
-        if column == 'Plan_status' or column == 'Change_status':
+        if column == 'Plan_status' or column == 'Change_status' or column == 'Change_Details':
             return {'class': 'nowrap'}
+
+    def suit_row_attributes(self, obj):
+        class_map = {
+            1: 'warning',
+        }
+
+        css_class = class_map.get(obj.Region_Choice)
+        if css_class:
+            return {'class': css_class}
+
 
     suit_form_tabs = (('general', 'General'), ('plan', 'Plan'))
 

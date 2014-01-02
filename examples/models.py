@@ -8,8 +8,7 @@ class Change(models.Model):
                                      help_text='MAC / Istrat / ROARS / Incident / TechDirect / eConnect')
     Plan_Owner = models.ForeignKey(User, related_name='plan_owner', null=False)
     User_Requested_Time = models.DateTimeField(help_text='in EST')
-    Change_Owner = models.ForeignKey(User, related_name='change_owner', null=False,  unique=True,
-                                     verbose_name='Change Owner')
+    Change_Owner = models.ForeignKey(User, related_name='change_owner', null=False, verbose_name='Change Owner')
     Start_Time = models.DateTimeField(help_text='in EST')
     End_Time = models.DateTimeField(help_text='in EST')
     User_Email = models.EmailField()
