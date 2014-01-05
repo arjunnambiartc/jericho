@@ -38,7 +38,7 @@ class ChangeAdmin(ModelAdmin):
     form = ChangeForm
     search_fields = ('RFC', 'Ticket_Number', 'User_Email', 'Change_Details')
     list_display = ('RFC', 'Ticket_Number', 'User_Email', 'User_Requested_Time', 'Start_Time', 'End_Time',
-                    'User_Email', 'Change_Details', 'Plan_Owner', 'Plan_status',
+                    'Region', 'Change_Details', 'Plan_Owner', 'Plan_status',
                     'Change_Owner', 'Change_status', 'Implementer', 'Validator')
     list_select_related = True
     list_filter = ('Start_Time', 'End_Time')
@@ -71,10 +71,17 @@ class ChangeAdmin(ModelAdmin):
 
     def suit_row_attributes(self, obj):
         class_map = {
-            1: 'warning',
+            2: 'warning',
+            3: 'info',
+            4: 'success',
+            5: 'error',
+            6: 'error',
+            7: 'error',
+            8: 'error',
+            10: 'success',
         }
 
-        css_class = class_map.get(obj.Region_Choice)
+        css_class = class_map.get(obj.Change_status)
         if css_class:
             return {'class': css_class}
 
