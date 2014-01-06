@@ -41,7 +41,7 @@ class ChangeAdmin(ModelAdmin):
                     'Region', 'Change_Details', 'Plan_Owner', 'Plan_status',
                     'Change_Owner', 'Change_status', 'Implementer', 'Validator')
     list_select_related = True
-    list_filter = ('Start_Time', 'End_Time')
+    list_filter = ('Change_status', 'Implementer', 'Plan_Owner')
     fieldsets = [
         ('Ticket Details', {
             'classes': 'suit-tab suit-tab-general',

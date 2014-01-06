@@ -28,7 +28,7 @@ ALLOWED_HOSTS = []
 
 SUIT_CONFIG = {
     # header
-      'ADMIN_NAME': 'Jericho',
+      'ADMIN_NAME': 'Change Portal',
     # 'HEADER_DATE_FORMAT': 'l, j. F Y',
     # 'HEADER_TIME_FORMAT': 'H:i',
 
